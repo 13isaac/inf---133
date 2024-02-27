@@ -11,6 +11,4 @@ def run(server_class=HTTPServer,handler_class=SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     run()
-## inf-133
-""" Repositorio de la materia INF-133 Programacion Web III
-Nombre: Isaac Joel Illatarco Anaya """
+
