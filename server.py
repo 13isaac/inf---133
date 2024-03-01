@@ -33,12 +33,16 @@ class RESTRequestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','application/json')
             self.end_headers()
-            carreras=[{}]
+            carreras=[]
             for i in estudiantes:
-                carreras[0].update(i['carrerra'],0)
-                #carreras.append(i['carrera'])
-
+                if(carreras.count(i['carrera'])==0):
+                    carreras.append(i['carrera'])
             self.wfile.write(json.dumps(carreras).encode('utf-8'))
+        elif self.path == "/estudiantes/economia":
+            economistas=list(filter(lambda x:x['carrera']=='Economia',estudiantes))
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(economistas).encode("utf-8"))
         else:
             self.send_response(404)
             self.send_header("Content-type", "application/json")
@@ -56,7 +60,17 @@ class RESTRequestHandler(BaseHTTPRequestHandler):
             self.send_header("Content-type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps(estudiantes).encode("utf-8"))
-
+        elif self.path == "/estudiantes/economia":
+            content_length = int(self.headers["Content-Length"])
+            post_data = self.rfile.read(content_length)
+            post_data = json.loads(post_data.decode("utf-8"))
+            post_data["id"] = len(estudiantes) + 1
+            if(post_data["carrera"]=="Economia"):
+                estudiantes.append(post_data)
+                self.send_response(201)
+                self.send_header("Content-type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps(estudiantes).encode("utf-8"))
         else:
             self.send_response(404)
             self.send_header("Content-type", "application/json")

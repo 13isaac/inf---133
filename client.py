@@ -66,6 +66,28 @@ put_response = requests.request(
 #print(put_response.text)
 
 #-----------carreras----------
-get_Carre = url + "carreras"
-get_responseCarre = requests.request(method="GET", url=get_Carre)
+getCarre = url + "carreras"
+get_responseCarre = requests.request(method="GET", url=getCarre)
 print(get_responseCarre.text)
+
+#-----------estudiantes/economia----------
+ruta_get = url + "estudiantes/economia"
+get_response = requests.request(method="GET", url=ruta_get)
+print(get_response.text)
+
+#-----------estudiantes/economia----------
+ruta_post = url + "estudiantes/economia"
+nuevo_estudiante = {
+    "nombre": "Carlos",
+    "apellido": "Reyes",
+    "carrera": "Economia",
+}
+post_response = requests.request(method="POST", url=ruta_post,json=nuevo_estudiante)
+print(post_response.text)
+nuevo_estudiante = {
+    "nombre": "Alain",
+    "apellido": "Carvajal",
+    "carrera": "Economia",
+}
+post_response = requests.request(method="POST", url=ruta_post,json=nuevo_estudiante)
+print(post_response.text)
