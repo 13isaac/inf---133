@@ -11,12 +11,11 @@
                         <div class="content">
                             <p><strong>Nombre: {{ user.first_name }} </strong></p>
                             <p><strong>Apellido: {{ user.last_name }}</strong></p>
-                            <p><strong>Email: {{ user.email }}</strong></p>
-                            <p><strong>Contraseña: {{ user.contraseña }}</strong></p>
-                            <p><strong>Fecha de Nacimiento: {{ user.fecha_nac }}</strong></p>
                             <div class="buttons">
-                                <a href="{{ url_for('user.actualizar', id=user.id) }}" class="button is-info">Editar</a>
-                                <a href="{{ url_for('user.eliminar_usuario', id=user.id) }}" class="button is-danger">Eliminar</a>
+                                <a href="{{ url_for('user.update_user', id=user.id) }}" 
+                                class="button is-info">Editar</a>
+                                <a href="{{ url_for('user.delete_user', id=user.id) }}" 
+                                class="button is-danger">Eliminar</a>
                             </div>
                         </div>
                     </div>

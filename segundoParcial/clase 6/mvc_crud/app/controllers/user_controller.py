@@ -32,9 +32,7 @@ def registro():
         last_name = request.form["last_name"]
         email = request.form['email']
         contraseña = request.form['contraseña']
-        fecha_nac=request.form['contraseña']
-        año,mes,dia=map(int,fecha_nac.split("-"))
-        fecha_nac=date(año,mes,dia)
+        fecha_nac=request.form['fecha_nac']
         # Creamos un nuevo usuario
         user = User(first_name, last_name, email, contraseña, fecha_nac)
         # Guardamos el usuario
@@ -84,8 +82,8 @@ def actualizar(id):
     user.update()
     return redirect(url_for("user.usuarios"))
 
-@user_bp.route("/users/<int:id>", methods=["GET", "POST"])
-def eliminar(id):
+@user_bp.route("/users/<int:id>/eliminar", methods=["GET"])
+def eliminar_usuario(id):
     user = User.get_by_id(id)
     if not user:
         return "Usuario no encontrado", 404
