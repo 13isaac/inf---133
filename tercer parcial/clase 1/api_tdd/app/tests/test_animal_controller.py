@@ -56,5 +56,16 @@ def test_delete_animal(test_client, auth_headers):
     response = test_client.get(f"/api/animals/{animal_id}", headers=auth_headers)
     assert response.status_code == 404
 
+def test_rol_user(test_client):
+    new_user = {"username": "testusuario", "password": "testpassword"}
+    response = test_client.post("/api/register", json=new_user)
+    assert response.status_code == 201
 
-    
+    user_credentials = {"username": "testusuario", "password": "testpassword"}
+    response = test_client.post("/api/login", json=user_credentials)
+    assert response.status_code == 200
+
+    response = test_client.get("/api/animals", headers=user_credentials)
+    assert response.status_code == 200
+    assert len(response.json) >=1
+
