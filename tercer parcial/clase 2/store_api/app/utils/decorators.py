@@ -11,7 +11,7 @@ def jwt_required(fn):
             verify_jwt_in_request()
             return fn(*args, **kwargs)
         except Exception as e:
-            return jsonify({"error": str(e)}), 401
+            return jsonify({"errorjwt": str(e)}), 401
 
     return wrapper
 
@@ -28,8 +28,6 @@ def role_required(roles=[]):
                     return jsonify({"error": "Acceso no autorizado para este rol"}), 403
                 return fn(*args, **kwargs)
             except Exception as e:
-                return jsonify({"error": str(e)}), 401
-
+                return jsonify({"errorole": str(e)}), 401
         return wrapper
-
     return decorator

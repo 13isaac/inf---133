@@ -11,7 +11,7 @@ def register():
     data = request.json
     username = data.get("username")
     password = data.get("password")
-    role = data.get("role")
+    roles = data.get("roles")
 
     if not username or not password:
         return jsonify({"error": "Se requieren nombre de usuario y contraseña"}), 400
@@ -20,7 +20,7 @@ def register():
     if existing_user:
         return jsonify({"error": "El nombre de usuario ya esta en uso"}), 400
 
-    new_user = User(username, password, role)
+    new_user = User(username, password, roles)
     new_user.save()
 
     return jsonify({"message": "Usuario creado exitosamente"}), 201
@@ -36,7 +36,7 @@ def login():
     if user and check_password_hash(user.password_hash, password):
         # Si las credenciales son válidas, genera un token JWT
         access_token = create_access_token(
-            identity={"username": username, "role": user.role}
+            identity={"username": username, "roles": user.roles}
         )
         return jsonify(access_token=access_token), 200
     else:

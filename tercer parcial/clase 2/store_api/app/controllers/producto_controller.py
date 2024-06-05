@@ -1,8 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.models.producto_model import Producto
 from app.views.producto_view import render_producto_list, render_producto_detail
-from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
-from functools import wraps
 from app.utils.decorators import jwt_required, role_required
 
 producto_bp = Blueprint("producto", __name__)
@@ -39,7 +37,7 @@ def create_producto():
     producto = Producto(name=name, description=description, price=price,stock=stock )
     producto.save()
 
-    return jsonify(render_producto_list(producto)), 201
+    return jsonify(render_producto_detail(producto)), 201
 
 
 # Ruta para actualizar un animal existente
@@ -58,9 +56,9 @@ def update_producto(id):
     price = data.get("price")
     stock = data.get("stock")
 
-    producto.update(name=name, description=description, price=price, stock=bool(stock))
+    producto.update(name=name, description=description, price=price, stock=stock)
 
-    return jsonify(render_producto_list(producto))
+    return jsonify(render_producto_detail(producto))
 
 @producto_bp.route("/products/<int:id>", methods=["DELETE"])
 @jwt_required

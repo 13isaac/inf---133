@@ -6,12 +6,12 @@ class Producto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(50), nullable=False)
-    price = db.Column(db.FLoat(), nullable=False)
+    price = db.Column(db.Float(), nullable=False)
     stock = db.Column(db.Integer, nullable=False)
 
     # Inicializa la clase `Producto`
-    def __init__(self, titulo, description, price, stock):
-        self.titulo=titulo
+    def __init__(self, name, description, price, stock):
+        self.name=name
         self.description=description
         self.price=float(price)
         self.stock=int(stock)

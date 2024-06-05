@@ -202,7 +202,13 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Token"
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "description": "Token de acceso JWT para el usuario"
+                                        }
+                                    }
                                 }
                             }
                         }
